@@ -1,26 +1,29 @@
 package controlador;
 
-import modelo.producto;
+import modelo.Producto;
 import java.util.ArrayList;
+import java.util.List;
 
-public class inventario {
+public class Inventario {
 
-    private ArrayList<producto> productos = new ArrayList<>();
+    private final List<Producto> productos = new ArrayList<>();
 
-    public void agregarProducto(producto p) {
+    public void agregarProducto(Producto p) {
+        if (buscar(p.getCodigo()) != null) {
+            throw new IllegalArgumentException("Ya existe un producto con ese código.");
+        }
         productos.add(p);
     }
 
-    public producto buscar(String codigo) {
-        for (producto p : productos) {
-            if (p.getCodigo().equals(codigo)) {
-                return p;
-            }
-        }
-        return null;
+    public Producto buscar(String codigo) {
+        return productos.stream()
+                .filter(p -> p.getCodigo().equals(codigo))
+                .findFirst()
+                .orElse(null);
     }
 
-    public ArrayList<producto> getProductos() {
-        return productos;
+    public List<Producto> getProductos() {
+        return new ArrayList<>(productos); // Retorna una copia para evitar modificaciones externas
     }
 }
+
