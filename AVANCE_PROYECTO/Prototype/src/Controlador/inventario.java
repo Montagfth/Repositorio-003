@@ -1,29 +1,28 @@
 package controlador;
 
-import modelo.Producto;
+import modelo.producto;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
 
-public class Inventario {
 
-    private final List<Producto> productos = new ArrayList<>();
+public class inventario {
 
-    public void agregarProducto(Producto p) {
-        if (buscar(p.getCodigo()) != null) {
+    private final Map<String, producto> productos = new HashMap<>();
+
+    public void agregarProducto(producto p) {
+        if (productos.containsKey(p.getCodigo())) {
             throw new IllegalArgumentException("Ya existe un producto con ese código.");
         }
-        productos.add(p);
+        productos.put(p.getCodigo(), p);
     }
 
-    public Producto buscar(String codigo) {
-        return productos.stream()
-                .filter(p -> p.getCodigo().equals(codigo))
-                .findFirst()
-                .orElse(null);
+    public producto buscar(String codigo) {
+        return productos.get(codigo);
     }
 
-    public List<Producto> getProductos() {
-        return new ArrayList<>(productos); // Retorna una copia para evitar modificaciones externas
+    public Collection<producto> getProductos() {
+        return new ArrayList<>(productos.values());
     }
 }
-
