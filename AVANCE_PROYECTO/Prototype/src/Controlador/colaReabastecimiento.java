@@ -1,30 +1,30 @@
 package controlador;
 
-import modelo.Producto;
+import modelo.producto;
 import java.util.PriorityQueue;
 import java.util.Comparator;
 
-public class ColaReabastecimiento {
+public class colaReabastecimiento {
 
-    private PriorityQueue<Producto> cola;
+    private PriorityQueue<producto> cola;
 
-    public ColaReabastecimiento() {
+    public colaReabastecimiento() {
         cola = new PriorityQueue<>(Comparator.comparingInt(
             p -> p.getCantidad() - p.getMinimo()
         ));
     }
 
-    public void insertar(Producto p) {
+    public void insertar(producto p) {
         if (!cola.contains(p) && p.necesitaReabastecimiento()) {
             cola.add(p);
         }
     }
 
-    public void eliminarProducto(Producto p) {
+    public void eliminarProducto(producto p) {
         cola.remove(p);
     }
 
-    public void actualizarProducto(Producto p) {
+    public void actualizarProducto(producto p) {
         // Lo eliminamos si ya estaba
         cola.remove(p);
         // Lo volvemos a insertar si aún necesita reabastecimiento
@@ -35,7 +35,7 @@ public class ColaReabastecimiento {
 
     public String mostrarCola() {
         StringBuilder sb = new StringBuilder();
-        for (Producto p : cola) {
+        for (producto p : cola) {
             sb.append(p.getNombre())
               .append(" - Stock: ")
               .append(p.getCantidad())
@@ -44,4 +44,5 @@ public class ColaReabastecimiento {
         return sb.toString();
     }
 }
+
 
