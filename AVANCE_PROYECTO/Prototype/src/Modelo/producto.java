@@ -2,14 +2,14 @@ package modelo;
 
 import java.util.Objects;
 
-public class Producto {
+public class producto {
 
     private final String codigo;
     private String nombre;
     private int cantidad;
     private int minimo;
 
-    public Producto(String codigo, String nombre, int cantidad, int minimo) {
+    public producto(String codigo, String nombre, int cantidad, int minimo) {
         if (codigo == null || codigo.isBlank() || nombre == null || nombre.isBlank()) {
             throw new IllegalArgumentException("Código y nombre no pueden estar vacíos.");
         }
@@ -81,8 +81,8 @@ public class Producto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Producto)) return false;
-        Producto producto = (Producto) o;
+        if (!(o instanceof producto)) return false;
+        producto producto = (producto) o;
         return codigo.equals(producto.codigo);
     }
 
